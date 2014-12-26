@@ -91,8 +91,11 @@ angular.module('ct.ui.router.extras').provider('$futureState',
         if (options.url) {
           var matches = [];
           for(var future in futureStates) {
-            if (futureStates[future].urlMatcher.exec(options.url)) {
-              matches.push(futureStates[future]);
+            var match = futureStates[future].urlMatcher.exec(options.url);
+            if(match){
+              if (match.length === 0) {
+                  matches.push(futureStates[future]);
+              }
             }
           }
           // Find most specific by ignoring matching parents from matches
